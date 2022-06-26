@@ -1,0 +1,13 @@
+.drop-area {
+    width: 80vh;
+    height: 80vh;
+    border: 5px dashed black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-area-highlight {
+    border-image: linear-gradient(45deg, purple,blue) 10;
+}
+
