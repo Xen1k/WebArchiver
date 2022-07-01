@@ -5,6 +5,8 @@ import axios from 'axios';
 const FileUploaderController = () => {
     const [isDragging, setIsDragging] = useState(false)
 
+    const [loading, setLoading] = useState(false)
+
     const dragStartHandler = (e: React.DragEvent): void => {
         e.preventDefault()
         setIsDragging(true)
@@ -25,6 +27,7 @@ const FileUploaderController = () => {
     }
 
     const sendData = async (formData: FormData) => {
+        setLoading(true)
         const response = await axios.post("http://localhost:80/compress", formData, {
             responseType: 'blob'
         });
@@ -33,10 +36,12 @@ const FileUploaderController = () => {
         fileLink.href = fileURL;
         fileLink.setAttribute('download', `${(formData.get("file") as File).name}.zip`);
         fileLink.click();
+        setLoading(false)
     }
 
     return (
         <FileUploaderView
+            loading={loading}
             isDragging={isDragging}
             dragStartHandler={dragStartHandler}
             dragLeaveHandler={dragLeaveHandler}
